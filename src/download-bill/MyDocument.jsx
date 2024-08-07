@@ -1,40 +1,70 @@
 // MyDocument.jsx
-import React from 'react';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import InvoiceItemsTable from './InvoiceItemsTable';
-import InvoicePersonalInfoRow from './InvoicePersonalInfoRow';
-import InvoiceSummary from './InvoiceSummary';
-import InvoiceTotalPrice from './InvoiceTotalPrice';
+import React from "react";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Image,
+  Font,
+} from "@react-pdf/renderer";
+import InvoiceItemsTable from "./InvoiceItemsTable";
+import InvoicePersonalInfoRow from "./InvoicePersonalInfoRow";
+import InvoiceSummary from "./InvoiceSummary";
+import InvoiceTotalPrice from "./InvoiceTotalPrice";
+import Logo from "../assets/logo.png";
+import Flag from "../assets/switzerland-flag.jpg";
 
+Font.register({
+  family: "Open Sans",
+  fonts: [
+    {
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
+      fontWeight: 600,
+    },
+  ],
+});
 // Define styles using StyleSheet.create
 const styles = StyleSheet.create({
   page: {
-    padding: 10,
-    fontSize: 12,
+    padding: 48,
+    fontSize: "10px",
+    flexDirection: "column",
+    alignItems: "flex-end",
   },
   section: {
-    marginBottom: 10,
+    width: "100%",
+    position: "relative",
+    marginBottom: "32px",
+    zIndex: 200,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
   },
   heading: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontFamily: "Open Sans",
+    fontSize: 32,
+    fontWeight: 600,
+    marginBottom: "20px",
   },
-  table: {
-    width: '100%',
-    marginBottom: 10,
+
+  logo: {
+    width: "84px",
+    height: "84px",
   },
-  tableRow: {
-    flexDirection: 'row',
-  },
-  tableCell: {
-    flex: 1,
-    padding: 5,
-  },
-  total: {
-    marginTop: 20,
-    paddingTop: 10,
-    borderTop: '1px solid #000',
+  flag: {
+    width: "320px",
+    position: "absolute",
+    bottom: 0,
+    left: "50%",
+    opacity: 0.4,
+    transform: "translate(-100%, 0)",
   },
 });
 
@@ -42,7 +72,10 @@ const MyDocument = ({ invoiceData }) => (
   <Document>
     <Page style={styles.page}>
       <View style={styles.section}>
-        <Text style={styles.heading}>INVOICE</Text>
+        <View style={styles.header}>
+          <Text style={styles.heading}>INVOICE</Text>
+          <Image style={styles.logo} src={Logo}></Image>
+        </View>
         <InvoicePersonalInfoRow
           text="Invoice No:"
           value={invoiceData.invoiceNumber}
@@ -62,6 +95,7 @@ const MyDocument = ({ invoiceData }) => (
       <InvoiceItemsTable items={invoiceData.items} />
       <InvoiceTotalPrice totalAmount={invoiceData.totalAmount} />
       <InvoiceSummary paid={invoiceData.paid} debt={invoiceData.debt} />
+      <Image style={styles.flag} src={Flag}></Image>
     </Page>
   </Document>
 );

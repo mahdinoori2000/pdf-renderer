@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    marginBottom: 5,
+    marginBottom: 3,
   },
   label: {
     fontWeight: "bold",

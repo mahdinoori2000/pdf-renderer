@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
   table: {
     width: "100%",
-    marginBottom: 10,
+    marginBottom: 32,
   },
   tableRow: {
     flexDirection: "row",
